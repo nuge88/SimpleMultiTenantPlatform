@@ -1,0 +1,59 @@
+services:
+  documentservice:
+    build:
+      context: ./src
+      dockerfile: Services/DocumentService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443  # Bind to HTTPS only
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Password1234
+    ports:
+      - "5005:443"  # HTTPS port
+      - "5004:80"  # HTTP port
+    # depends_on:
+      # - sqlserver   
+
+  userservice:
+    build:
+      context: ./src
+      dockerfile: Services/UserService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443  # Bind to HTTPS only
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Password1234
+    ports:
+      - "5003:443"  # HTTPS port
+      - "5002:80"  # HTTP port
+    # depends_on:
+      # - sqlserver
+
+  organizationservice:
+    build:
+      context: ./src
+      dockerfile: Services/OrganizationService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443  # Bind to HTTPS only
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Password1234
+    ports:
+      - "5001:443"  # HTTPS port
+      - "5000:80"  # HTTP port
+    # depends_on:
+      # - sqlserver
+
+  # sqlserver:
+    # image: mcr.microsoft.com/mssql/server:2019-latest
+    # container_name: sqlserver
+    # environment:
+      # SA_PASSWORD: "localD3vOnly123"
+      # ACCEPT_EULA: "Y"
+    # ports:
+      # - "1434:1433"
+    # volumes:
+      # - sqlserverdata:/var/opt/mssql
+
+volumes:
+  sqlserverdata:

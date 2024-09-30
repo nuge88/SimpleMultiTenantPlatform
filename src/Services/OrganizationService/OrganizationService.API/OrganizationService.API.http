@@ -1,0 +1,38 @@
+@OrganizationService.API_HostAddress = https://localhost:{5001}
+
+# Get an Organization by ID
+GET {{OrganizationService.API_HostAddress}}/api/organizations/1
+Accept: application/json
+
+###
+
+# Create a New Organization
+POST {{OrganizationService.API_HostAddress}}/api/organizations
+Content-Type: application/json
+Accept: application/json
+
+Body:
+{
+  "name": "New Organization"
+}
+
+###
+
+# Update an Existing Organization
+PUT {{OrganizationService.API_HostAddress}}/api/organizations/1
+Content-Type: application/json
+Accept: application/json
+
+Body:
+{
+  "id": 1,
+  "name": "Updated Organization Name"
+}
+
+###
+
+# Delete an Organization
+DELETE {{OrganizationService.API_HostAddress}}/api/organizations/1
+Accept: application/json
+
+###
